@@ -35,9 +35,15 @@ test:
 
 about:
   summary: Consume Server-Sent Event (SSE) messages with HTTPX.
+  description: |
+    httpx-sse provides the connect_sse and aconnect_sse helpers for connecting to an SSE endpoint.
+    The resulting EventSource object exposes the .iter_sse() and .aiter_sse() methods to iterate over the server-sent events.
   home: https://github.com/florimondmanca/httpx-sse
   license: MIT
   license_file: LICENSE
+  license_family: MIT
+  doc_url: https://github.com/florimondmanca/httpx-sse
+  dev_url: https://github.com/florimondmanca/httpx-sse
 
 extra:
   recipe-maintainers:
