@@ -1,17 +1,16 @@
 {% set name = "httpx-sse" %}
-{% set version = "0.4.0" %}
+{% set version = "0.4.3" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/httpx-sse-{{ version }}.tar.gz
-  sha256: 1e81a3a3070ce322add1d3529ed42eb5f70817f45ed6ec915ab753f961139721
+  url: https://pypi.org/packages/source/h/httpx-sse/httpx_sse-0.4.3.tar.gz
+  sha256: 9b1ed0127459a66014aec3c56bebd93da3c1bc8bb6618c8082039a44889a755d
 
 build:
-  # nothing provides h2 3.* needed by httpcore on s390x
-  skip: True  # [py<38 or s390x]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
@@ -27,12 +26,19 @@ requirements:
     - httpx
 
 test:
+  source_files:
+    - tests
   imports:
     - httpx_sse
-  commands:
-    - pip check
   requires:
     - pip
+    - pytest >=7.4.3
+    - pytest-asyncio >=0.21.1
+    - sse-starlette >=1.8.2
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -vv tests
 
 about:
   summary: Consume Server-Sent Event (SSE) messages with HTTPX.
