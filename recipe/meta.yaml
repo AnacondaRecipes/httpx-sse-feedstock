@@ -10,8 +10,7 @@ source:
   sha256: 9b1ed0127459a66014aec3c56bebd93da3c1bc8bb6618c8082039a44889a755d
 
 build:
-  # nothing provides h2 3.* needed by httpcore on s390x
-  skip: true  # [py<39 or s390x]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
